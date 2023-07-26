@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "c6541f85-8cc3-43f1-b686-1e5c7cc87bc4",
+		"name": "File Upload Utils",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "File Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "parentId",
+							"value": "001jdurkfjedoriderADU",
+							"type": "text"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/Users/arunkushwaha87/Downloads/Statement1607202309220170.pdf",
+								"/Users/arunkushwaha87/Downloads/Statement1607202309180880.pdf"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/upload-files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"upload-files"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "File Upload",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "parentId",
+									"value": "001jdurkfjedoriderADS",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/Users/arunkushwaha87/Downloads/Statement1607202309220170.pdf",
+										"/Users/arunkushwaha87/Downloads/Statement1607202309180880.pdf",
+										"/Users/arunkushwaha87/Downloads/1689521555233CexNvLbh2py9wXK7.pdf"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"status\" : \"success\",\n    \"message\" : \"file Uploaded successfully\",\n    \"filePath\" : [\n        \"{parentId}/{fileNameWithExtension}\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Third Party Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"endpoint\" : \"http://localhost:3000/delete-files\",\n    \"method\" : \"POST\",\n    \"requestBody\" : {\n        \"type\" : \"parent\",\n        \"parentId\" : \"001jdurkfjedoriderADS\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/third-party-request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"third-party-request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Files for parent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\" : \"parent\",\n    \"parentId\" : \"001jdurkfjedoriderADP\",\n    \"filePath\" : [\n        \"001jdurkfjedoriderADP/1689521555233CexNvLbh2py9wXK7.pdf\",\n        \"001jdurkfjedoriderADP/16895213933648vyAfrlurNFji9SW.pdf\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/delete-files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"delete-files"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Files for parent",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\" : \"parent\",//if file then need to delete that file only and if parent then need to delete that folder\n    \"parentId\" : \"parentId\", // only if type is parent\n    \"filePath\" : [\n        \"fileId\" // only if type is file\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/delete-files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delete-files"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
