@@ -17,7 +17,7 @@ const port = process.env.PORT || 3000; // You can choose any available port numb
 app.use(bodyParser.json());
 
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
     res.json({ status: 'success', message: 'Server is running fine' });
 });
 
