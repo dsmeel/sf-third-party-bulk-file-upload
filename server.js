@@ -11,7 +11,7 @@ const axios = require('axios');
 
 // Create an Express app and define the port number
 const app = express();
-const port = 3030; // You can choose any available port number
+const port = process.env.PORT || 3000; // You can choose any available port number
 
 // Set up middleware for JSON parsing
 app.use(bodyParser.json());
