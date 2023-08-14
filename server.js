@@ -16,6 +16,12 @@ const port = 3000; // You can choose any available port number
 // Set up middleware for JSON parsing
 app.use(bodyParser.json());
 
+
+app.post('/', (req, res) => {
+    res.json({ status: 'success', message: 'Server is running fine' });
+});
+
+
 // Set up the storage for uploaded files
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
