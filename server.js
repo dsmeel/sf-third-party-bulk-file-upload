@@ -117,6 +117,7 @@ app.post('/third-party-request', async (req, res) => {
         var data = new FormData();
         console.log('req.body.requestBody', req.body.requestBody);
         for (let key in req.body.requestBody) {
+            if(key ==)
             data.append(key, req.body.requestBody[key]);
         }
 
@@ -136,6 +137,7 @@ app.post('/third-party-request', async (req, res) => {
                     fileKey = req.body.fileConfig.uploadKeys[counter];
                 }
                 counter++;
+                data.delete(fileKey);
                 data.append(fileKey, fs.createReadStream(filePath));
             });
         }
