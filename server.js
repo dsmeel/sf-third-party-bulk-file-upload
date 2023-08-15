@@ -139,7 +139,7 @@ app.post('/third-party-request', async (req, res) => {
                     fileKey = req.body.fileConfig.uploadKeys[counter];
                 }
                 counter++;
-                data.delete(fileKey);
+                //data.delete(fileKey);
                 data.append(fileKey, fs.createReadStream(filePath));
             });
         }
