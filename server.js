@@ -118,7 +118,9 @@ app.post('/third-party-request', async (req, res) => {
         console.log('req.body.requestBody', req.body.requestBody);
         for (let key in req.body.requestBody) {
             console.log('key', key);
-            data.append(key, req.body.requestBody[key]);
+            if(req.body.requestBody[key]){
+                data.append(key, req.body.requestBody[key]);
+            }
         }
 
         if (req.body.files) {
