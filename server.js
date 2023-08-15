@@ -117,7 +117,6 @@ app.post('/third-party-request', async (req, res) => {
         var data = new FormData();
         console.log('req.body.requestBody', req.body.requestBody);
         for (let key in req.body.requestBody) {
-            console.log('key', key);
             if(req.body.requestBody[key]){
                 data.append(key, req.body.requestBody[key]);
             }
@@ -169,7 +168,7 @@ app.post('/third-party-request', async (req, res) => {
         };
     }
 
-    console.log('config=>', config);
+    //console.log('config=>', config);
 
     axios(config)
         .then(function (response) {
@@ -178,7 +177,7 @@ app.post('/third-party-request', async (req, res) => {
         })
         .catch(function (error) {
             console.log(error);
-            res.json({ status: 'error', data: error });
+            res.json({ status: 'error', data: error.response });
         });
 
 
