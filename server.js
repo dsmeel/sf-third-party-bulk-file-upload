@@ -180,7 +180,6 @@ app.post('/third-party-request', async (req, res) => {
             if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
-                errorToReturn.status = error.response.status;
                 errorToReturn.data = error.response.data;
                 console.log(error.response.data);
                 console.log(error.response.status);
