@@ -115,6 +115,7 @@ app.post('/third-party-request', async (req, res) => {
 
     if ((req.body.format && req.body.format.toLowerCase() == "form-data") || (req.body.files != undefined && req.body.files.length > 0)) {
         var data = new FormData();
+        console.log('req.body.requestBody', req.body.requestBody);
         for (let key in req.body.requestBody) {
             data.append(key, req.body.requestBody[key]);
         }
