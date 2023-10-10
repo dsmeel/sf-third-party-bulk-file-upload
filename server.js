@@ -267,7 +267,7 @@ app.post('/third-party-request-xmlpayload', async (req, res) => {
     axios(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
-            res.json({ status: 'success', data: response.data });
+            res.string(response.data);
         })
         .catch(function (error) {
             var errorToReturn = { status: 'error' };
