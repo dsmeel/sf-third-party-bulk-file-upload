@@ -275,7 +275,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
     axios(config)
         .then(function (response) {
             console.log(JSON.stringify(response.data));
-            res.string(response.data);
+            res.json(response.data);
         })
         .catch(function (error) {
             var errorToReturn = { status: 'error' };
