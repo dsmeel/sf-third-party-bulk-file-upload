@@ -10,11 +10,14 @@ const path = require('path');
 const FormData = require('form-data');
 const axios = require('axios');
 
+var timeout = require('connect-timeout');
+
 // Create an Express app and define the port number
 const app = express();
 const port = process.env.PORT || 3000; // You can choose any available port number
 
 // Set up middleware for JSON parsing
+app.use(timeout('50s'));
 app.use(bodyParser.json());
 
 
