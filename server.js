@@ -254,7 +254,6 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
         }
 
         var config = {
-            timeout: 50000,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
@@ -262,7 +261,6 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
         };
     } else {
         var config = {
-            timeout: 50000,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
