@@ -17,7 +17,6 @@ const app = express();
 const port = process.env.PORT || 3000; // You can choose any available port number
 
 // Set up middleware for JSON parsing
-app.use(timeout('50s'));
 app.use(bodyParser.json());
 
 
@@ -207,8 +206,12 @@ app.post('/third-party-request', async (req, res) => {
 });
 
 
+function haltOnTimedout (req, res, next) {
+    if (!req.timedout) next()
+  }
+
 // Define a route to post data and file to third party server
-app.post('/third-party-request-xmlpayload', async (req, res) => {
+app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  async (req, res) => {
 
     if (req.body.endpoint == undefined || req.body.endpoint == '') {
         return res.status(400).json({ message: 'Please post endpoint' });
