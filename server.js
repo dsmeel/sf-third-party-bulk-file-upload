@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
 
 const helpers = require('./helper'); // Import helper functions for file deletion
 const fs = require('fs');
@@ -168,7 +169,7 @@ app.post('/third-party-request', async (req, res) => {
         };
     }
 
-    //console.log('config=>', config);
+    console.log('config=>', config);
 
     axios(config)
         .then(function (response) {
@@ -199,6 +200,101 @@ app.post('/third-party-request', async (req, res) => {
         });
 
 
+
+});
+
+
+// Define a route to post data and file to third party server
+app.post('/third-party-request-xmlpayload', async (req, res) => {
+
+    if (req.body.endpoint == undefined || req.body.endpoint == '') {
+        return res.status(400).json({ message: 'Please post endpoint' });
+    }
+
+    if (req.body.method == undefined || req.body.method == '') {
+        return res.status(400).json({ message: 'Please post method' });
+    }
+
+
+
+    if (req.body.requestBody == undefined || Object.keys(req.body.requestBody).length === 0) {
+        return res.status(400).json({ message: 'Please post requestBody' });
+    }
+
+
+    const options = {
+        ignoreAttributes : false
+    };
+    let jObj;
+    const builder = new XMLBuilder(options);
+    const parser = new XMLParser(options);
+    if (req.body.files != undefined && req.body.files.length > 0) {
+        
+        jObj = parser.parse(req.body.requestBody);
+
+
+        if (req.body.files) {
+            jObj['soap:Envelope']['soap:Body']['CreateLead']['leadWSModel']['Documents'] = [];
+            req.body.files.forEach(file => {
+                let filePath = path.join(__dirname, '/uploads/' + file.path);
+                const fileObj = {};
+                fileObj.ClientDocument = {
+                    FileName:file.name, 
+                    DocumentType:file.documentType, 
+                    Content:fs.readFileSync(filePath, {encoding: 'base64'}) 
+                };
+                jObj['soap:Envelope']['soap:Body']['CreateLead']['leadWSModel']['Documents'].push(fileObj);
+            });
+        }
+
+        var config = {
+            method: req.body.method,
+            url: req.body.endpoint,
+            headers: req.body.headers,
+            data: builder.build(jObj)
+        };
+    } else {
+        var config = {
+            method: req.body.method,
+            url: req.body.endpoint,
+            headers: req.body.headers,
+            data: JSON.stringify(req.body.requestBody)
+        };
+    }
+
+    console.log('config=>', config);
+
+    axios(config)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data));
+            res.json({ status: 'success', data: response.data });
+        })
+        .catch(function (error) {
+            var errorToReturn = { status: 'error' };
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                errorToReturn.data = error.response.data;
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser 
+                // and an instance of http.ClientRequest in node.js
+                errorToReturn.data = error.response;
+                console.log(error.request);
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+              errorToReturn.message = error.message;
+            res.json(errorToReturn);
+        });
+        
+        
+
+        
 
 });
 
