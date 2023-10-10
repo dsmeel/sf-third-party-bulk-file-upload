@@ -272,7 +272,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
 
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log("api response -- ",JSON.stringify(response.data));
             res.json(response.data);
         })
         .catch(function (error) {
