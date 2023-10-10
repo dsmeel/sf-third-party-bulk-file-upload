@@ -248,7 +248,7 @@ app.post('/third-party-request-xmlpayload', async (req, res) => {
         }
 
         var config = {
-            timeout: 20000,
+            timeout: 50000,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
@@ -256,7 +256,7 @@ app.post('/third-party-request-xmlpayload', async (req, res) => {
         };
     } else {
         var config = {
-            timeout: 20000,
+            timeout: 50000,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
