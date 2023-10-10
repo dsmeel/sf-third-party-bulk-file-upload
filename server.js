@@ -277,6 +277,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
         })
         .catch(function (error) {
             var errorToReturn = { status: 'error' };
+            console.log("api error response -- ",error);
             if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
@@ -297,6 +298,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
               errorToReturn.message = error.message;
             // res.json(errorToReturn);
         });
+        console.log('return response to user');
     res.json({success:true});   
         
 
