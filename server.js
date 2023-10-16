@@ -275,7 +275,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
     axios(config)
         .then(function (response) {
             console.log("api response -- ",JSON.stringify(response.data));
-            // res.json(response.data);
+            res.json(response.data);
         })
         .catch(function (error) {
             var errorToReturn = { status: 'error' };
@@ -298,10 +298,10 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
                 console.log('Error', error.message);
               }
               errorToReturn.message = error.message;
-            // res.json(errorToReturn);
+            res.json(errorToReturn);
         });
         console.log('return response to user');
-    res.json({success:true});   
+    //res.json({success:true});   
         
 
         
