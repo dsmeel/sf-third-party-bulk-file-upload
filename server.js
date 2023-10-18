@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // Create the parent folder if it doesn't exist
         if (!fs.existsSync('uploads/' + req.body.parentId.trim())) {
-            fs.mkdirSync('uploads/' + req.body.parentId).trim();
+            fs.mkdirSync('uploads/' + req.body.parentId.trim());
             console.log(`Folder "${req.body.parentId.trim()}" created successfully.`);
         }
         cb(null, 'uploads/' + req.body.parentId + '/'); // Uploads will be stored in the 'uploads' folder
