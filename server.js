@@ -254,7 +254,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
         }
 
         var config = {
-            keepAlive: false,
+            keepAlive: true,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
@@ -262,7 +262,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
         };
     } else {
         var config = {
-            keepAlive: false,
+            keepAlive: true,
             method: req.body.method,
             url: req.body.endpoint,
             headers: req.body.headers,
