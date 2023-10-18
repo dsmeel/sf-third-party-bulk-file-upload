@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
             fs.mkdirSync('uploads/' + req.body.parentId.trim());
             console.log(`Folder "${req.body.parentId.trim()}" created successfully.`);
         }
-        cb(null, 'uploads/' + req.body.parentId + '/'); // Uploads will be stored in the 'uploads' folder
+        cb(null, 'uploads/' + req.body.parentId.trim() + '/'); // Uploads will be stored in the 'uploads' folder
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
