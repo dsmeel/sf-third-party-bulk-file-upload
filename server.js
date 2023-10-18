@@ -255,7 +255,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
 
         var config = {
             keepAlive: true,
-            method: req.body.method,
+            method: 'POST',
             url: req.body.endpoint,
             headers: req.body.headers,
             data: builder.build(jObj)
@@ -263,7 +263,7 @@ app.post('/third-party-request-xmlpayload', timeout('50s'), haltOnTimedout,  asy
     } else {
         var config = {
             keepAlive: true,
-            method: req.body.method,
+            method: 'POST',
             url: req.body.endpoint,
             headers: req.body.headers,
             data: JSON.stringify(req.body.requestBody)
