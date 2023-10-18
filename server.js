@@ -29,9 +29,9 @@ app.get('/', (req, res) => {
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // Create the parent folder if it doesn't exist
-        if (!fs.existsSync('uploads/' + req.body.parentId)) {
-            fs.mkdirSync('uploads/' + req.body.parentId);
-            console.log(`Folder "${req.body.parentId}" created successfully.`);
+        if (!fs.existsSync('uploads/' + req.body.parentId.trim())) {
+            fs.mkdirSync('uploads/' + req.body.parentId).trim();
+            console.log(`Folder "${req.body.parentId.trim()}" created successfully.`);
         }
         cb(null, 'uploads/' + req.body.parentId + '/'); // Uploads will be stored in the 'uploads' folder
     },
@@ -60,7 +60,7 @@ app.post('/upload-files', upload.array('files', 5), (req, res) => {
     }
 
     // Generate file paths for the uploaded files
-    const fileNames = files.map(file => req.body.parentId + '/' + file.filename);
+    const fileNames = files.map(file => req.body.parentId.trim() + '/' + file.filename);
     res.json({ status: 'success', message: 'File uploaded successfully.', filePath: fileNames });
 });
 
